@@ -1,6 +1,27 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-import pandas as pd
+import yt_dlp
+from youtube_search import YoutubeSearch
+
+def download_music(search_str):
+    YTSearchResult = YoutubeSearch(search_str, max_results=1).to_dict()
+
+    URLS = "https://www.youtube.com{link}".format(link = YTSearchResult[0]['url_suffix'])
+
+    ydl_opts = {
+        'format': 'mp3/bestaudio/best',
+        'ffmpeg_location': './.venv/Lib/site-packages/ffmpeg-full_build/bin/',
+        'outtmpl': './Hang động code (MNguyn)/Chơi nhạc/Music/%(title)s.%(ext)s',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+        }]
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        ydl.download((URLS,))
+    
+    return ydl_opts['outtmpl']
 
 def find_music(search_str):
     sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
@@ -9,32 +30,25 @@ def find_music(search_str):
         )
     )
 
-    results = sp.search(search_str)
+    results = sp.search(search_str, limit=1)
+    
+    print(results)
+    
+    result_details = dict(
+        SongName = results['tracks']['items'][0]['name'],
+        MainArtist = results['tracks']['items'][0]['artists'][0]['name'],
+        #FeaturedArtist = AssistArtist,
+        #URI = results['tracks']['items'][0]['uri']
+    )
+    
+    print(result_details['SongName'])
 
-    search_result=[]
-    for result in results['tracks']['items']:
-            
-        AssistArtist = ""
-        for i in range(1,len(result['artists'])):
-            temp = result['artists'][i]['name']
-            if i == 1:
-                AssistArtist += temp
-            else:
-                AssistArtist = ", " + temp
-            
-        result_details = dict(
-            SongName = result['name'],
-            MainArtist = result['artists'][0]['name'],
-            FeaturedArtist = AssistArtist,
-            URI = result['uri']
-        )
-        search_result.append(result_details)
+    #result = pd.DataFrame(search_result)
 
-    result = pd.DataFrame(search_result)
+    #result.to_csv('./Result.csv')
 
-    result.to_csv('./Result.csv')
-    print(result)
+    search_result = str(result_details['SongName'] + ' ' + result_details['MainArtist'])
 
-    search_str = str(result['SongName'][0] + ' ' + result['MainArtist'][0])
+    return search_result
 
-    return search_str
+download_music(find_music("Skibidi"))
