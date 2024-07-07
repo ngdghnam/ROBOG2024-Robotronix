@@ -10,7 +10,7 @@ def download_music(search_str):
 
     ydl_opts = {
         'format': 'mp3/bestaudio/best',
-        'ffmpeg_location': './.venv/Lib/site-packages/ffmpeg-full_build/bin/',
+        'ffmpeg_location': './Hang động code (MNguyn)/Chơi nhạc/ffmpeg-full_build/bin/',
         'outtmpl': './Hang động code (MNguyn)/Chơi nhạc/Music/%(title)s.%(ext)s',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
@@ -20,8 +20,6 @@ def download_music(search_str):
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download((URLS,))
-    
-    return ydl_opts['outtmpl']
 
 def find_music(search_str):
     sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
@@ -32,20 +30,10 @@ def find_music(search_str):
 
     results = sp.search(search_str, limit=1)
     
-    print(results)
-    
     result_details = dict(
         SongName = results['tracks']['items'][0]['name'],
-        MainArtist = results['tracks']['items'][0]['artists'][0]['name'],
-        #FeaturedArtist = AssistArtist,
-        #URI = results['tracks']['items'][0]['uri']
+        MainArtist = results['tracks']['items'][0]['artists'][0]['name']
     )
-    
-    print(result_details['SongName'])
-
-    #result = pd.DataFrame(search_result)
-
-    #result.to_csv('./Result.csv')
 
     search_result = str(result_details['SongName'] + ' ' + result_details['MainArtist'])
 
