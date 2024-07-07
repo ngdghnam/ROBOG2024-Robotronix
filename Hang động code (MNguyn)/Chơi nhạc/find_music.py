@@ -1,12 +1,19 @@
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 import pandas as pd
 
-def get_songs_spotify(search_str, sp):
-    search_result=[]
+def find_music(search_str):
+    sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
+        client_id="b89acd4356eb4d0ca884d29d568daa20",
+        client_secret="ec186bc7b2fc4aeeb4afd41afda26cad"
+        )
+    )
 
     results = sp.search(search_str)
 
+    search_result=[]
     for result in results['tracks']['items']:
-        
+            
         AssistArtist = ""
         for i in range(1,len(result['artists'])):
             temp = result['artists'][i]['name']
@@ -14,7 +21,7 @@ def get_songs_spotify(search_str, sp):
                 AssistArtist += temp
             else:
                 AssistArtist = ", " + temp
-        
+            
         result_details = dict(
             SongName = result['name'],
             MainArtist = result['artists'][0]['name'],
@@ -23,4 +30,11 @@ def get_songs_spotify(search_str, sp):
         )
         search_result.append(result_details)
 
-    return pd.DataFrame(search_result)
+    result = pd.DataFrame(search_result)
+
+    result.to_csv('./Result.csv')
+    print(result)
+
+    search_str = str(result['SongName'][0] + ' ' + result['MainArtist'][0])
+
+    return search_str
