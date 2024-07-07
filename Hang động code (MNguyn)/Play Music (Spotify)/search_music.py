@@ -9,7 +9,7 @@ def search_music(search_str, sp):
 
     for result in results['tracks']['items']:
         
-        AssistArtist=""
+        AssistArtist = ""
         for i in range(1,len(result['artists'])):
             temp = result['artists'][i]['name']
             if i == 1:
