@@ -10,8 +10,8 @@ def download_music(search_str):
 
     ydl_opts = {
         'format': 'mp3/bestaudio/best',
-        'ffmpeg_location': './Hang động code (MNguyn)/Chơi nhạc/ffmpeg-full_build/bin/',
-        'outtmpl': './Hang động code (MNguyn)/Chơi nhạc/Music/%(title)s.%(ext)s',
+        'ffmpeg_location': './.venv/ffmpeg-full_build/bin/',
+        'outtmpl': './Music/%(title)s.%(ext)s',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
