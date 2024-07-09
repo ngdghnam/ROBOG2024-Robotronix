@@ -1,5 +1,5 @@
 import google.generativeai as genai
-from VoiceToMusic.Find_music_test import find_music
+from Find_music_test import find_music
 from download_music import download_music
 
 genai.configure(api_key='AIzaSyBbW-oad2I-g5k4pAI9K0PSjZhqqHB6QYU')
