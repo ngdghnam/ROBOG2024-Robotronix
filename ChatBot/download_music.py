@@ -12,7 +12,7 @@ def download_music(search_str: str):
     ydl_opts = {
         'format': 'mp3/bestaudio/best',
         'ffmpeg_location': './.venv/ffmpeg-full_build/bin',
-        'outtmpl': './Music/%(title)s.%(ext)s',
+        'outtmpl': './ChatBot/Music/%(title)s.%(ext)s',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
