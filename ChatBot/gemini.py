@@ -1,15 +1,30 @@
 import google.generativeai as genai
-from Find_music_test import find_music
-from download_music import download_music
-
-genai.configure(api_key='AIzaSyBbW-oad2I-g5k4pAI9K0PSjZhqqHB6QYU')
-
-model = genai.GenerativeModel(model_name='gemini-1.5-flash', tools=[find_music, download_music])
-
-chat = model.start_chat(enable_automatic_function_calling=True)
-
-response = chat.send_message(
-    "I want to find a song called IT BOY, can you provide the artist and download that song"
+import sys
+import os
+sys.path.append(os.path.abspath('./VoiceToMusic'))
+from online_music import ( # type: ignore
+    find_music,
+    download_music
 )
 
-print(response)
+with open('./ChatBot/personality.txt', 'r') as instruction:
+    
+    genai.configure(api_key='AIzaSyBbW-oad2I-g5k4pAI9K0PSjZhqqHB6QYU')
+    
+    functions=[
+        find_music,
+        download_music
+    ]
+
+    model = genai.GenerativeModel(model_name='gemini-1.5-flash', tools=functions, system_instruction=instruction)
+    chat = model.start_chat(enable_automatic_function_calling = True, history=[])
+    
+    start_message = chat.send_message('This is a system message, do not reply to this, start by introducing yourself to the user')
+    print(f"Gemini: {start_message.text}")
+    
+    while True:
+        prompt = input("User: ")
+        if (prompt == "exit"):
+            break
+        response = chat.send_message(prompt)
+        print(f"Gemini: {response.text}")
