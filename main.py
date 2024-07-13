@@ -1,22 +1,13 @@
-from urllib import request
 import sys
 import os
-sys.path.append(os.path.abspath('./ChatBot'))
+sys.path.append(os.path.abspath('./Functions/CheckInternet'))
+sys.path.append(os.path.abspath('./Functions/ChatBot'))
 from gemini import gemini # type: ignore
-
-def internet_on():
-    """
-    Check device's internet connectivity
-    """
-    try:
-        request.urlopen('http://google.com', timeout=1)
-        return True
-    except request.URLError as err:
-        return False
+from CheckInternet import internet_on # type: ignore
     
 if __name__ == "__main__":
     if internet_on():
         gemini()
     else:
-        # Chế độ offline
+        # Chế độ offline -> offline.py
         pass
