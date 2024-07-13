@@ -5,6 +5,9 @@ sys.path.append(os.path.abspath('./ChatBot'))
 from gemini import gemini # type: ignore
 
 def internet_on():
+    """
+    Check device's internet connectivity
+    """
     try:
         request.urlopen('http://google.com', timeout=1)
         return True
