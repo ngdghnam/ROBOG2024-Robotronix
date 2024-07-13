@@ -1,13 +1,16 @@
 import google.generativeai as genai
 import sys
 import os
-sys.path.append(os.path.abspath('./Functions/Music'))
+
+for folder in os.listdir('./Functions'):
+    sys.path.append(os.path.abspath('./Functions/'+folder))
+
+# Tất cả hàm phải nằm trong một folder nằm trong folder Functions
 from music import ( # type: ignore
     find_music,
     download_music,
     play_music
 )
-sys.path.append(os.path.abspath('./Functions/Read_Braille'))
 from read_braille import ( # type: ignore
     read_braille
 )
