@@ -1,8 +1,8 @@
 import google.generativeai as genai
 import sys
 import os
-sys.path.append(os.path.abspath('./VoiceToMusic'))
-from online_music import ( # type: ignore
+sys.path.append(os.path.abspath('./Music'))
+from music import ( # type: ignore
     find_music,
     download_music,
     play_music

@@ -6,7 +6,7 @@ def search_music(song: str, similiar_score: int) -> bool:
     Search song on the device
     """
     # Bỏ phần dir của tên bài
-    music_dir = './VoiceToMusic/Music'
+    music_dir = './Music/Song'
     files = glob.glob(music_dir+'/'+'*.mp3')
     
     # Search song on the device
@@ -31,7 +31,7 @@ from youtube_search import YoutubeSearch
 def download_music(search_str: str) -> bool:
     """
     Description: Take in a string containing song name and artist name and search youtube for a song
-    Download directory: .VoiceToMusic/Music/
+    Download directory: ./Music/Music/
 
     return False if the song is already been downloaded
     return True if the song is successfully downloaded
@@ -51,7 +51,7 @@ def download_music(search_str: str) -> bool:
         ydl_opts = {
                 'format': 'mp3/bestaudio/best',
                 'ffmpeg_location': './.venv/ffmpeg-full_build/bin',
-                'outtmpl': './VoiceToMusic/Music/' + search_str +'.%(ext)s',
+                'outtmpl': './Music/Song/' + search_str +'.%(ext)s',
                 'postprocessors': [{
                     'key': 'FFmpegExtractAudio',
                     'preferredcodec': 'mp3',
@@ -100,7 +100,7 @@ def play_music(song: str) -> bool:
     print(f'play_music function running with {song}') # log
 
     # Bỏ phần dir của tên bài
-    music_dir = './VoiceToMusic/Music'
+    music_dir = './Music/Song'
     files = glob.glob(music_dir+'/'+'*.mp3')
     
     if search_music(song, 75):
@@ -115,5 +115,5 @@ def play_music(song: str) -> bool:
 if __name__ == '__main__':
     song_name = 'Son Tung MTP'
 
-    # Download_music(find_music(song_name)[1])
+    #download_music(find_music(song_name)[1])
     print(play_music("Son Tung MTP"))
