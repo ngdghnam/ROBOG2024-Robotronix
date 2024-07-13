@@ -107,6 +107,18 @@ def find_music(query: str) -> list:
 #    )
 
 from thefuzz import process
+"""
+import YanAPI as YanAPI
+import sys
+import os
+import time
+from mutagen.mp3 import MP3
+sys.path.append(os.path.abspath('.'))
+import config
+ip_addr = config.YanIP
+YanAPI.yan_api_init(ip_addr)
+"""
+
 
 def play_music(song: str) -> bool:
     """
@@ -129,7 +141,14 @@ def play_music(song: str) -> bool:
         song = process.extractOne(song, files, scorer=fuzz.partial_ratio)[0]
         song = song.strip(music_dir+"\ ")
         print(song)
-        # Play .MP3 - phần này dùng api yanshee
+        """
+        YanAPI.start_voice_tts("Playing "+song+"", True)
+        time.sleep(2)
+        YanAPI.start_play_music('./Functions/Music/Song/{title}'.format(title=song))
+        time.sleep(10) # test chạy nhạc
+        # time.sleep(MP3(f'./Music/{title}').info.length)
+        YanAPI.stop_play_music()
+        """
         return True
     return False
 
@@ -138,4 +157,3 @@ if __name__ == '__main__':
 
     #download_music(find_music(song_name)[1])
     #print(play_music("Blank Space"))
-    print(find_music('Muốn rồi mà sao còn'))
