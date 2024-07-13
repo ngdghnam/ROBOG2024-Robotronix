@@ -7,7 +7,7 @@ def search_music(song: str, similiar_score: int) -> bool:
 
     arguments:
     - song: search term
-    - similiar_score -- define how similiar it is to the search term (higher = need more exact wording)
+    - similiar_score: define how similiar it is to the search term (higher = need more exact wording)
 
     return:
     - return True if the function found the song on the device
@@ -49,14 +49,13 @@ def download_music(search_str: str) -> bool:
     - return False if the song is already been downloaded
     - return True if the song is successfully downloaded
     """
-
     print(f'download_music function running with {search_str}\n') # log
 
     YTSearchResult = YoutubeSearch(str(search_str), max_results=1).to_dict()
 
     URLS = "https://www.youtube.com{link}".format(link = YTSearchResult[0]['url_suffix'])
 
-    print(YTSearchResult[0]['title'])
+    print(YTSearchResult[0]['title']) # log
 
     if search_music(search_str, 80):
         return False
@@ -120,7 +119,6 @@ def play_music(song: str) -> bool:
     - return False if the song is not available on the device
     - return True if the song is successfully found and finished playing
     """
-
     print(f'play_music function running with {song}\n') # log
 
     # Bỏ phần dir của tên bài
