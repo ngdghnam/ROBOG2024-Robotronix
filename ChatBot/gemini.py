@@ -4,7 +4,8 @@ import os
 sys.path.append(os.path.abspath('./VoiceToMusic'))
 from online_music import ( # type: ignore
     find_music,
-    download_music
+    download_music,
+    play_music
 )
 sys.path.append(os.path.abspath('./Read_Braille'))
 from read_braille import ( # type: ignore
@@ -19,6 +20,7 @@ with open('./ChatBot/personality.txt', 'r') as instruction:
     functions=[
         find_music,
         download_music,
+        play_music,
         read_braille
     ]
 
@@ -27,8 +29,7 @@ with open('./ChatBot/personality.txt', 'r') as instruction:
                                   system_instruction=instruction)
     chat = model.start_chat(enable_automatic_function_calling = True, history=[])
     
-    # start_message = chat.send_message('This is a system message, do not reply to this, start by introducing yourself to the user')
-    start_message = chat.send_message('This is a system message, you are being quality tested by the developer')
+    start_message = chat.send_message('This is a system message, do not reply to this, start by introducing yourself to the user')
     print(f"Yanshee: {start_message.text}")
     
     while True:
