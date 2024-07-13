@@ -117,8 +117,7 @@ sys.path.append(os.path.abspath('.'))
 import config
 ip_addr = config.YanIP
 YanAPI.yan_api_init(ip_addr)
-"""
-
+# """
 
 def play_music(song: str) -> bool:
     """
@@ -148,7 +147,7 @@ def play_music(song: str) -> bool:
         time.sleep(10) # test chạy nhạc
         # time.sleep(MP3(f'./Music/{title}').info.length)
         YanAPI.stop_play_music()
-        """
+        # """
         return True
     return False
 

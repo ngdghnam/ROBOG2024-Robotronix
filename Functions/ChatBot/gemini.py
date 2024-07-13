@@ -21,7 +21,7 @@ sys.path.append(os.path.abspath('.'))
 import config
 ip_addr = config.YanIP
 YanAPI.yan_api_init(ip_addr)
-"""
+# """
 
 def gemini():
     with open('./Functions/ChatBot/personality.txt', 'r') as instruction:
@@ -45,10 +45,10 @@ def gemini():
         """
         YanAPI.start_voice_tts(str(start_message.text),True)
         time.sleep(2)
-        """
+        # """
         
         while True:
-            # listen_res = YanAPI.sync_do_voice_asr_value()
+            # listen_res = YanAPI.sync_do_voice_asr_value() | add thêm if check người dùng có nói ko
             prompt = input("User: ")
             # prompt = listen_res["question"]
             if (prompt == "exit"):
