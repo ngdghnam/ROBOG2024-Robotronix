@@ -3,7 +3,15 @@ from thefuzz import fuzz
 
 def search_music(song: str, similiar_score: int) -> bool:
     """
-    Search song on the device
+    description: Search song on the device
+
+    arguments:
+    - song: search term
+    - similiar_score -- define how similiar it is to the search term (higher = need more exact wording)
+
+    return:
+    - return True if the function found the song on the device
+    - return False if the function did not find the song on the device
     """
     # Bỏ phần dir của tên bài
     music_dir = './Music/Song'
@@ -22,22 +30,27 @@ def search_music(song: str, similiar_score: int) -> bool:
     print(log_top_song + ': ' + str(top_result))
 
     if top_result != 0:
-        return 1
-    return 0
+        return True
+    return False
 
 import yt_dlp
 from youtube_search import YoutubeSearch
 
 def download_music(search_str: str) -> bool:
     """
-    Description: Take in a string containing song name and artist name and search youtube for a song
-    Download directory: ./Music/Music/
+    description: Download a song on youtube as a .mp3 file
+    
+    download directory: ./Music/Music/
 
-    return False if the song is already been downloaded
-    return True if the song is successfully downloaded
+    argument:
+    - search_str: search_term
+
+    return:
+    - return False if the song is already been downloaded
+    - return True if the song is successfully downloaded
     """
 
-    print(f'download_music function running with {search_str}') # log
+    print(f'download_music function running with {search_str}\n') # log
 
     YTSearchResult = YoutubeSearch(str(search_str), max_results=1).to_dict()
 
@@ -67,9 +80,15 @@ import unidecode
 
 def find_music(query: str) -> list:
     """
-    Take in a string and search spotify, return a list containing songs name and its artist from the search results
+    description: search spotify
+
+    argument:
+    - query: search_term
+
+    return:
+    - return a list containing songs name and its artist from the search results 
     """
-    print(f'find_music function running with {query}') # log
+    print(f'find_music function running with {query}\n') # log
 
     sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
         client_id="b89acd4356eb4d0ca884d29d568daa20",
@@ -92,12 +111,17 @@ from thefuzz import process
 
 def play_music(song: str) -> bool:
     """
-    Take in a song name and search the available song on the device. If available, play that song
-    Return 0 if the song is not available on the device
-    Return 1 if the song is successfully found and finished playing
+    description: If song is available on device, play that song and return this function after playing
+
+    argument:
+    - song: song name
+
+    return:
+    - return False if the song is not available on the device
+    - return True if the song is successfully found and finished playing
     """
 
-    print(f'play_music function running with {song}') # log
+    print(f'play_music function running with {song}\n') # log
 
     # Bỏ phần dir của tên bài
     music_dir = './Music/Song'
@@ -107,13 +131,12 @@ def play_music(song: str) -> bool:
         song = process.extractOne(song, files, scorer=fuzz.partial_ratio)[0]
         song = song.strip(music_dir+"\ ")
         print(song)
-        # Play .MP3
-        return 1
-    return 0
-
+        # Play .MP3 - phần này dùng api yanshee
+        return True
+    return False
 
 if __name__ == '__main__':
     song_name = 'Son Tung MTP'
 
     #download_music(find_music(song_name)[1])
-    print(play_music("Son Tung MTP"))
+    print(play_music("Blank Space"))
