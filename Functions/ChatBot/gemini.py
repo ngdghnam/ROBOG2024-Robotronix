@@ -14,6 +14,10 @@ from music import ( # type: ignore
 from read_braille import ( # type: ignore
     read_braille
 )
+from TempDectect import ( # type: ignore
+    temperature_sensor,
+    humidity_sensor
+)
 
 """
 import time
@@ -32,7 +36,9 @@ def gemini():
             find_music,
             download_music,
             play_music,
-            read_braille
+            read_braille,
+            temperature_sensor,
+            humidity_sensor
         ]
 
         model = genai.GenerativeModel(model_name='gemini-1.5-flash',
