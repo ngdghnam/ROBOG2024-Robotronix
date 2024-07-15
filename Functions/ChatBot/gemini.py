@@ -48,7 +48,8 @@ def gemini():
         # """
         
         while True:
-            # listen_res = YanAPI.sync_do_voice_asr_value() | add thêm if check người dùng có nói ko
+            # listen_res = YanAPI.sync_do_voice_asr_value()
+            # add thêm if check người dùng có nói ko
             prompt = input("User: ")
             # prompt = listen_res["question"]
             if (prompt == "exit"):
