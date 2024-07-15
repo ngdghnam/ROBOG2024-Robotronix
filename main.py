@@ -5,7 +5,7 @@ sys.path.append(os.path.abspath('./Functions/ChatBot'))
 from gemini import gemini # type: ignore
 from CheckInternet import internet_on # type: ignore
 import config
-"""
+# """
 import time
 ip_addr = config.YanIP
 YanAPI.yan_api_init(ip_addr)

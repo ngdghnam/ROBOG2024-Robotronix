@@ -19,7 +19,7 @@ from TempDectect import ( # type: ignore
     humidity_sensor
 )
 
-"""
+#"""
 import time
 sys.path.append(os.path.abspath('.'))
 import config
@@ -48,21 +48,21 @@ def gemini():
         
         start_message = chat.send_message('This is a system message, do not reply to this, start by introducing yourself to the user')
         print(f"Yanshee: {start_message.text}")
-        """
+        # """
         YanAPI.start_voice_tts(str(start_message.text),True)
         time.sleep(2)
         # """
         
         while True:
-            # listen_res = YanAPI.sync_do_voice_asr_value()
+            listen_res = YanAPI.sync_do_voice_asr_value()
             # add thêm if check người dùng có nói ko
             prompt = input("User: ")
-            # prompt = listen_res["question"]
+            prompt = listen_res["question"]
             if (prompt == "exit"):
                 break
             response = chat.send_message(prompt)
             print(f"Yanshee: {response.text}")
-            # YanAPI.start_voice_tts(str(response.text),True)
+            YanAPI.start_voice_tts(str(response.text),True)
 
 if __name__ == "__main__":
     gemini()

@@ -107,7 +107,7 @@ def find_music(query: str) -> list:
 #    )
 
 from thefuzz import process
-"""
+# """
 import YanAPI as YanAPI
 import sys
 import os
@@ -140,7 +140,7 @@ def play_music(song: str) -> bool:
         song = process.extractOne(song, files, scorer=fuzz.partial_ratio)[0]
         song = song.strip(music_dir+"\ ")
         print(song)
-        """
+        # """
         YanAPI.start_voice_tts("Playing "+song+"", True)
         time.sleep(2)
         YanAPI.start_play_music('./Functions/Music/Song/{title}'.format(title=song))
