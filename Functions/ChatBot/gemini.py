@@ -51,6 +51,7 @@ def gemini():
         print(f"Yanshee: {start_message.text}")
         # """
         YanAPI.start_voice_tts(str(start_message.text),False)
+        YanAPI.start_play_motion('bow')
         time.sleep(5)
         # """
         

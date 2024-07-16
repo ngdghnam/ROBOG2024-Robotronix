@@ -148,7 +148,8 @@ def play_music(song: str) -> bool:
         print(YanAPI.upload_media_music(f'./Functions/Music/Song/{song}'))
         time.sleep(3)
         # YanAPI.start_play_music(song)
-        print(YanAPI.start_play_music(song))
+        print(YanAPI.get_media_music_list()['data']['music'][-1]['name'])
+        print(YanAPI.start_play_music(YanAPI.get_media_music_list()['data']['music'][-1]['name']))
         time.sleep(10) # test chạy nhạc
         # time.sleep(MP3('./Functions/Music/Song/{title}'.format(title=song)).info.length)
         YanAPI.stop_play_music()
@@ -158,7 +159,7 @@ def play_music(song: str) -> bool:
     return False
 
 if __name__ == '__main__':
-    song_name = 'FRIENDSHIP by Den'
+    song_name = 'IT BOY'
 
-    download_music(song_name)
+    # download_music(song_name)
     play_music(song_name) 
