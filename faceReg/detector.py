@@ -53,7 +53,8 @@ def encode_known_faces(
     name_encodings = {"names": names, "encodings": encodings}
     with encodings_location.open(mode="wb") as f:
         pickle.dump(name_encodings, f)
-        
+
+#chạy lệnh này trước để build model (ông tạo folder trong training như mẫu rồi thêm nhiều ảnh vào rồi mới chạy lệnh này nha)
 #encode_known_faces()
 def recognize_faces(
     image_location: str,
@@ -109,6 +110,7 @@ def _display_face(draw, bounding_box, name):
         name,
         fill="white",
     )
+#chạy lệnh này để muốn test nhanh hình ảnh bất kỳ (nên cmt dòng lệnh encode_known_faces() ở trên để tránh mất thời gian nếu như ông đã build model trước đó)
 #recognize_faces("unknown1.jpg")
 def validate(model: str = "hog"):
     for filepath in Path("validation").rglob("*"):
@@ -125,3 +127,4 @@ if __name__ == "__main__":
         validate(model=args.m)
     if args.test:
         recognize_faces(image_location=args.f, model=args.m)
+#Có thể chạy trong terminal (ông đọc trên phần parser): python detector.py --test -f <image_dir> 
