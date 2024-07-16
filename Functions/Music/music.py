@@ -21,7 +21,7 @@ def search_music(song: str, similiar_score: int) -> bool:
     top_result=0
     log_top_song=''
     for file in files:
-        file = file.strip(music_dir+"\ ")
+        file = file.strip(music_dir+"\\")
         similarity = fuzz.partial_ratio(song, file) # Rate how close each song name is to the search term
         if similarity > top_result and similarity > similiar_score:
             top_result = similarity
@@ -132,27 +132,33 @@ def play_music(song: str) -> bool:
     """
     print(f'play_music function running with {song}\n') # log
 
-    # Bỏ phần dir của tên bài
-    music_dir = './Functions/Music/Song'
-    files = glob.glob(music_dir+'/'+'*.mp3')
+
     
     if search_music(song, 75):
+        # Bỏ phần dir của tên bài
+        music_dir = './Functions/Music/Song/'
+        files = glob.glob(music_dir+'*.mp3')
+        
         song = process.extractOne(song, files, scorer=fuzz.partial_ratio)[0]
-        song = song.strip(music_dir+"\ ")
+        song = song.strip(music_dir+'\\') 
         print(song)
         # """
-        YanAPI.start_voice_tts("Playing "+song+"", True)
+        YanAPI.start_voice_tts("Playing "+song+"", False)
         time.sleep(2)
-        YanAPI.start_play_music('./Functions/Music/Song/{title}'.format(title=song))
+        print(YanAPI.upload_media_music(f'./Functions/Music/Song/{song}'))
+        time.sleep(3)
+        # YanAPI.start_play_music(song)
+        print(YanAPI.start_play_music(song))
         time.sleep(10) # test chạy nhạc
-        # time.sleep(MP3(f'./Music/{title}').info.length)
+        # time.sleep(MP3('./Functions/Music/Song/{title}'.format(title=song)).info.length)
         YanAPI.stop_play_music()
+        YanAPI.delete_media_music(song)
         # """
         return True
     return False
 
 if __name__ == '__main__':
-    song_name = 'Son Tung MTP'
+    song_name = 'FRIENDSHIP by Den'
 
-    #download_music(find_music(song_name)[1])
-    #print(play_music("Blank Space"))
+    download_music(song_name)
+    play_music(song_name) 

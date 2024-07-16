@@ -23,6 +23,7 @@ from TempDectect import ( # type: ignore
 import time
 sys.path.append(os.path.abspath('.'))
 import config
+import YanAPI
 ip_addr = config.YanIP
 YanAPI.yan_api_init(ip_addr)
 # """
@@ -49,20 +50,21 @@ def gemini():
         start_message = chat.send_message('This is a system message, do not reply to this, start by introducing yourself to the user')
         print(f"Yanshee: {start_message.text}")
         # """
-        YanAPI.start_voice_tts(str(start_message.text),True)
-        time.sleep(2)
+        YanAPI.start_voice_tts(str(start_message.text),False)
+        time.sleep(5)
         # """
         
         while True:
             listen_res = YanAPI.sync_do_voice_asr_value()
             # add thêm if check người dùng có nói ko
-            prompt = input("User: ")
+            # prompt = input("User: ")
             prompt = listen_res["question"]
+            print(prompt)
             if (prompt == "exit"):
                 break
             response = chat.send_message(prompt)
             print(f"Yanshee: {response.text}")
-            YanAPI.start_voice_tts(str(response.text),True)
+            YanAPI.sync_do_tts(str(response.text),False)
 
 if __name__ == "__main__":
     gemini()

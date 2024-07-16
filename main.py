@@ -7,6 +7,7 @@ from CheckInternet import internet_on # type: ignore
 import config
 # """
 import time
+import YanAPI
 ip_addr = config.YanIP
 YanAPI.yan_api_init(ip_addr)
 # """

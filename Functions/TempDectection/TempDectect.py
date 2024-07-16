@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.abspath('.'))
 
-from YansheeRobot import YanAPI # type: ignore
+import YanAPI # type: ignore
 import config
 ip_addr = config.YanIP
 YanAPI.yan_api_init(ip_addr)
