@@ -1,6 +1,7 @@
 import google.generativeai as genai
 import sys
 import os
+import fnmatch
 
 for folder in os.listdir('./Functions'):
     sys.path.append(os.path.abspath('./Functions/'+folder))
@@ -9,15 +10,21 @@ for folder in os.listdir('./Functions'):
 from music import ( # type: ignore
     find_music,
     download_music,
-    play_music
+    play_music,
+    check_available_song
 )
-from read_braille import ( # type: ignore
-    read_braille
+from weather import ( # type: ignore
+    weather
 )
 from TempDectect import ( # type: ignore
     temperature_sensor,
     humidity_sensor
 )
+"""
+from face_detection import ( # type: ignore
+    FaceDetection
+)
+"""
 
 #"""
 import time
@@ -37,9 +44,10 @@ def gemini():
             find_music,
             download_music,
             play_music,
-            read_braille,
+            weather,
             temperature_sensor,
-            humidity_sensor
+            humidity_sensor,
+            check_available_song
         ]
 
         model = genai.GenerativeModel(model_name='gemini-1.5-flash',
@@ -47,25 +55,30 @@ def gemini():
                                     system_instruction=instruction)
         chat = model.start_chat(enable_automatic_function_calling = True, history=[])
         
-        start_message = chat.send_message('This is a system message, do not reply to this, start by introducing yourself to the user')
+        start_message = chat.send_message('This is a system message, do not reply to this, start by a quick introduction')
         print(f"Yanshee: {start_message.text}")
         # """
         YanAPI.start_voice_tts(str(start_message.text),False)
-        YanAPI.start_play_motion('bow')
-        time.sleep(5)
+        YanAPI.sync_play_motion('bow', speed='slow')
+        YanAPI.start_play_motion('Reset', speed='slow')
+        time.sleep(3)
         # """
         
         while True:
             listen_res = YanAPI.sync_do_voice_asr_value()
-            # add thêm if check người dùng có nói ko
-            # prompt = input("User: ")
             prompt = listen_res["question"]
-            print(prompt)
-            if (prompt == "exit"):
-                break
-            response = chat.send_message(prompt)
-            print(f"Yanshee: {response.text}")
-            YanAPI.sync_do_tts(str(response.text),False)
+            print(f'user: {prompt}')
+            match prompt:
+                case prompt if fnmatch.fnmatch(prompt, "*Shutdown"):
+                    break
+                case prompt if len(prompt) == 0:
+                    print('Yanshee: I cannot hear you, please repeat')
+                    YanAPI.sync_do_tts("I cannot hear you, please repeat",False)
+                case _:
+                    response = chat.send_message(prompt)
+                    print(f"Yanshee: {response.text}")            
+                    YanAPI.sync_do_tts(str(response.text),False)
+            
 
 if __name__ == "__main__":
     gemini()
