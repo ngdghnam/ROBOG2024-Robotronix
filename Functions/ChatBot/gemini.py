@@ -28,6 +28,9 @@ from face_reg import ( # type: ignore
     face_recognition,
     add_face_data
 )
+from object_detection import ( # type: ignore
+    detect_obj
+)
 
 #"""
 import time
@@ -51,7 +54,8 @@ def gemini():
             check_available_song,
             face_registration,
             face_recognition,
-            add_face_data
+            add_face_data,
+            detect_obj
         ]
 
         model = genai.GenerativeModel(model_name='gemini-1.5-flash',

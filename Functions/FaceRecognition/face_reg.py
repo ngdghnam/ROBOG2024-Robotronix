@@ -20,7 +20,7 @@ def screenshot(num: int) -> None:
     """
     YanAPI.open_vision_stream(resolution='1920x1080')
     
-    YanAPI.sync_do_tts("Please look at me so I can see you, wait 5 seconds")
+    YanAPI.sync_do_tts("I'm looking in front of me, analysing")
     time.sleep(5)
     vidcap = cv2.VideoCapture('http://192.168.0.160:8000/stream.mjpg')
     for i in range (0, num):

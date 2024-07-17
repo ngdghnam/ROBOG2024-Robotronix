@@ -3,13 +3,16 @@ import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
+sys.path.append(os.path.abspath('./Functions/FaceRecognition'))
+from face_reg import screenshot # type: ignore
 
 classFile  = "./Functions/ObjectDetect/coco_class_labels.txt"
 
 with open(classFile) as fp:
     labels = fp.read().split("\n")
     
-print(labels)
+# print(labels)
 
 modelFile  = os.path.join("./Functions/ObjectDetect/models", "ssd_mobilenet_v2_coco_2018_03_29", "frozen_inference_graph.pb")
 configFile = os.path.join("./Functions/ObjectDetect/models", "ssd_mobilenet_v2_coco_2018_03_29.pbtxt")
@@ -64,6 +67,7 @@ def display_text(im, text, x, y):
 def display_objects(im, objects, threshold=0.3):
     rows = im.shape[0]
     cols = im.shape[1]
+    object_list=[]
 
     # For every Detected Object
     for i in range(objects.shape[2]):
@@ -82,13 +86,33 @@ def display_objects(im, objects, threshold=0.3):
             label = labels[classId] if labels is not None else f'Class {classId}'
             display_text(im, "{}".format(label), x, y)
             cv2.rectangle(im, (x, y), (x + w, y + h), (0, 0, 0), 2)
+            object_list.append(label)
 
     # Convert Image to RGB since we are using Matplotlib for displaying image
+    """
     mp_img = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
     plt.figure(figsize=(30, 10))
     plt.imshow(mp_img)
     plt.show()
+    """
+    return object_list
 
-im = cv2.imread(os.path.join("./Functions/ObjectDetect/images", "soccer.jpg"))
-objects = detect_objects(net, im)
-display_objects(im, objects)
+def detect_obj(Gemini: bool=True) -> list:
+    """
+    Take a picture and detect objects in it
+
+    argument:
+    - Gemini: check if Gemini is calling the function
+
+    return:
+    - a list of objects name
+    """
+    print("System: Running Object Detection")
+    screenshot(1)
+    os.rename(f'./Functions/FaceRecognition/screenshot/screenshot0.jpg', f'./Functions/ObjectDetect/images/screenshot.jpg')
+    im = cv2.imread(os.path.join("./Functions/ObjectDetect/images", "screenshot.jpg"))
+    objects = detect_objects(net, im)
+    result = display_objects(im, objects)
+    os.remove("./Functions/ObjectDetect/images/screenshot.jpg")
+
+    return result
