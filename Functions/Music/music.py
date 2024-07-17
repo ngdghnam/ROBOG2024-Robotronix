@@ -190,7 +190,7 @@ def play_music(song: str) -> bool:
     return False
 
 if __name__ == '__main__':
-    song_name = 'happy birthday'
+    song_name = 'SorrySorry'
 
     # download_music(song_name)
     print(play_music(song_name))
