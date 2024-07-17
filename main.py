@@ -19,8 +19,9 @@ if __name__ == "__main__":
     
     if internet_on():
         # YanAPI.start_voice_tts('Starting ChatBot mode'),True)
-        YanAPI.start_voice_tts("Starting Chatbot mode", False)
+        YanAPI.start_voice_tts("Internet connection detected, starting Chatbot mode", False)
         gemini()
     else:
         # Chế độ offline -> offline.py
+        YanAPI.start_voice_tts("No Internet Connection", False)
         pass
