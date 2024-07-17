@@ -77,7 +77,7 @@ def gemini():
             prompt = listen_res["question"]
             print(f'user: {prompt}')
             match prompt:
-                case prompt if fnmatch.fnmatch(prompt, "*Shutdown"):
+                case prompt if fnmatch.fnmatch(prompt, "*Shut down"):
                     break # Thêm code tắt robot cũm được
                 case prompt if len(prompt) == 0:
                     print('Yanshee: I cannot hear you, please repeat')
