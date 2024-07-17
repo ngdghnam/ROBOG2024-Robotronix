@@ -1,17 +1,26 @@
 import detector
-import YanAPI
-YanAPI.yan_api_init("192.168.0.160")
 import cv2
+import sys
+import os
+import time
+import YanAPI
+sys.path.append(os.path.abspath('.'))
+import config
+ip_addr = config.YanIP
+YanAPI.yan_api_init(ip_addr)
 
-def screenshot(Gemni: bool) -> str: 
+def screenshot(gemini: bool) -> str: 
     """
-    This function is used to take a photo from the robot's current vision and return the name of the person it recognizes. 
+    This function is used to take a photo from the robot's current vision and return the name of the person it recognizes.
+
+    argument:
+    - gemini: check if Gemini is calling the function 
     """
     YanAPI.sync_do_tts("Please look at me so I can see you and wait 5 seconds")
-    vidcap = cv2.VideoCapture('http://192.168.0.160:8000/stream.mjpg')
-    success,image = vidcap.read()
-    cv2.imwrite("frame.jpg", image) # save frame as JPEG file      
-    success,image = vidcap.read()
-    print('Read a new frame: ', success)
+    time.sleep(3)
+    vidcap = cv2.VideoCapture(f'http://{ip_addr}:8000/stream.mjpg')
+    image = vidcap.read()
+    cv2.imwrite("screenshot/frame.jpg", image) # save frame as JPEG file      
     
-    return
+if __name__ == "__main__":
+    screenshot()
