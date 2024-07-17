@@ -47,7 +47,7 @@ def face_registration(name: str) -> int:
     except FileExistsError:
         return 1
     else:
-        for i in range(0, 10):
+        for i in range(0, 20):
             os.rename(f'./Functions/FaceRecognition/screenshot/screenshot{i}.jpg', f'./Functions/FaceRecognition/training/{name}/screenshot{i}.jpg')
         detector.encode_known_faces()
     return 0
@@ -87,7 +87,7 @@ def add_face_data(name: str) -> int:
         for i in range(0, 10):
             code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
             os.rename(f'./Functions/FaceRecognition/screenshot/screenshot{i}.jpg', f'./Functions/FaceRecognition/training/{name}/screenshot{code}.jpg')
-        detector.encode_known_faces()
+        detector.encode_known_faces(model='cnn')
         return 0
     except:
         return 2
@@ -96,5 +96,5 @@ def add_face_data(name: str) -> int:
 
 if __name__ == "__main__":
     # face_registration("nam")
-    add_face_data('nam')
-    face_recognition()
+    face_registration('Nam')
+    # face_recognition()

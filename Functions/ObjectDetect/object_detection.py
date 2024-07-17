@@ -4,7 +4,9 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+from PIL import Image
 sys.path.append(os.path.abspath('./Functions/FaceRecognition'))
+import google.generativeai as genai
 from face_reg import screenshot # type: ignore
 
 classFile  = "./Functions/ObjectDetect/coco_class_labels.txt"
@@ -88,16 +90,16 @@ def display_objects(im, objects, threshold=0.3):
             cv2.rectangle(im, (x, y), (x + w, y + h), (0, 0, 0), 2)
             object_list.append(label)
 
-    # Convert Image to RGB since we are using Matplotlib for displaying image
-    """
     mp_img = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-    plt.figure(figsize=(30, 10))
-    plt.imshow(mp_img)
-    plt.show()
-    """
-    return object_list
+    
+    # creating image object of 
+    # above array 
+    img = Image.fromarray(mp_img) 
 
-def detect_obj(Gemini: bool=True) -> list:
+    return img
+    
+
+def detect_obj(Gemini: bool=True) -> str:
     """
     Take a picture and detect objects in it
 
@@ -105,7 +107,7 @@ def detect_obj(Gemini: bool=True) -> list:
     - Gemini: check if Gemini is calling the function
 
     return:
-    - a list of objects name
+    - string describing the photo
     """
     print("System: Running Object Detection")
     screenshot(1)
@@ -113,6 +115,11 @@ def detect_obj(Gemini: bool=True) -> list:
     im = cv2.imread(os.path.join("./Functions/ObjectDetect/images", "screenshot.jpg"))
     objects = detect_objects(net, im)
     result = display_objects(im, objects)
+    genai.configure(api_key='AIzaSyBbW-oad2I-g5k4pAI9K0PSjZhqqHB6QYU')
+    model = genai.GenerativeModel(model_name='gemini-1.5-flash')
+    response = model.generate_content([result, 'describe the image'])
     os.remove("./Functions/ObjectDetect/images/screenshot.jpg")
+    return response.text
 
-    return result
+if __name__ == "__main__":
+    print(detect_obj())

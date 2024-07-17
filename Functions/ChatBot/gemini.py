@@ -77,7 +77,9 @@ def gemini():
             prompt = listen_res["question"]
             print(f'user: {prompt}')
             match prompt:
-                case prompt if fnmatch.fnmatch(prompt, "*Shut down"):
+                case prompt if fnmatch.fnmatch(prompt, "*Good Bye"):
+                    print('Yanshee: Goodbye, see you later')
+                    YanAPI.sync_do_tts("Goodbye, see you later",False)
                     break # Thêm code tắt robot cũm được
                 case prompt if len(prompt) == 0:
                     print('Yanshee: I cannot hear you, please repeat')
@@ -86,7 +88,6 @@ def gemini():
                     response = chat.send_message(prompt)
                     print(f"Yanshee: {response.text}")            
                     YanAPI.sync_do_tts(str(response.text),False)
-            
 
 if __name__ == "__main__":
     gemini()
