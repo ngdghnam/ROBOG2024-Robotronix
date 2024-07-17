@@ -113,8 +113,9 @@ def _display_face(draw, bounding_box, name):
     )
 #chạy lệnh này để muốn test nhanh hình ảnh bất kỳ (nên cmt dòng lệnh encode_known_faces() ở trên để tránh mất thời gian nếu như ông đã build model trước đó)
 #recognize_faces("unknown1.jpg")
+
 def validate(model: str = "hog"):
-    for filepath in Path("validation").rglob("*"):
+    for filepath in Path("./Functions/FaceRecognition/validation").rglob("*"):
         if filepath.is_file():
             recognize_faces(
                 image_location=str(filepath.absolute()), model=model
@@ -128,5 +129,5 @@ if __name__ == "__main__":
         validate(model=args.m)
     if args.test:
         recognize_faces(image_location=args.f, model=args.m)
-    encode_known_faces()
+    validate()
 #Có thể chạy trong terminal (ông đọc trên phần parser): python detector.py --test -f <image_dir> 

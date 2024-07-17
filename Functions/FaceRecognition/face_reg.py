@@ -67,7 +67,7 @@ def face_recognition(Gemini: bool = True) -> str:
     os.remove("./Functions/FaceRecognition/screenshot/screenshot0.jpg")
     return result
 
-def add_face_data(name):
+def add_face_data(name: str) -> int:
     """
     Add additional photos to train recognition model with the name of the user and pictures taken from camera
 
@@ -95,6 +95,6 @@ def add_face_data(name):
         return 1
 
 if __name__ == "__main__":
-    # face_registration("nguyin")
+    face_registration("nam")
     # add_face_data('nguyin')
     face_recognition()
