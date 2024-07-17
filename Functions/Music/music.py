@@ -20,7 +20,8 @@ def search_music(song: str, similiar_score: int) -> bool:
     # Search song on the device
     top_result=0
     for file in files:
-        file = file.strip(music_dir+"\\")
+        file = file.strip(music_dir)
+        file = file[1:]
         similarity = fuzz.partial_ratio(song, file) # Rate how close each song name is to the search term
         if similarity > top_result and similarity > similiar_score:
             top_result = similarity
@@ -163,16 +164,16 @@ def play_music(song: str) -> bool:
         YanAPI.upload_media_music(f'./Functions/Music/Song/{song}')
         time.sleep(3)
         # YanAPI.start_play_music(song)
-        print(YanAPI.start_play_music(song))
+        print(YanAPI.start_play_music(name=song))
         time.sleep(10) # test chạy nhạc
         # time.sleep(MP3('./Functions/Music/Song/{title}'.format(title=song)).info.length)
-        YanAPI.stop_play_music()
-        YanAPI.delete_media_music(song)
+        # YanAPI.stop_play_music()
+        # YanAPI.delete_media_music(song)
         # """
         return True
     else:
         for song_inter in check_available_song():
-            if song_inter == song:
+            if fuzz.partial_ratio(song, song_inter) > 75:
                 song = song_inter
                 YanAPI.start_voice_tts("Playing "+song.strip('.mp3')+"", False)
                 time.sleep(2)
@@ -190,8 +191,8 @@ def play_music(song: str) -> bool:
     return False
 
 if __name__ == '__main__':
-    song_name = 'SorrySorry'
+    song_name = 'happy birthday'
 
     # download_music(song_name)
-    print(play_music('baby shark'))
+    print(play_music(song_name))
     # check_available_song()

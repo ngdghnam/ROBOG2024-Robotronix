@@ -127,4 +127,5 @@ if __name__ == "__main__":
         validate(model=args.m)
     if args.test:
         recognize_faces(image_location=args.f, model=args.m)
+    encode_known_faces()
 #Có thể chạy trong terminal (ông đọc trên phần parser): python detector.py --test -f <image_dir> 
