@@ -20,11 +20,11 @@ from TempDectect import ( # type: ignore
     temperature_sensor,
     humidity_sensor
 )
-"""
-from face_detection import ( # type: ignore
-    FaceDetection
+from FaceRecognition import ( # type: ignore
+    face_registration,
+    face_recognition,
+    add_face_data
 )
-"""
 
 #"""
 import time
@@ -47,7 +47,10 @@ def gemini():
             weather,
             temperature_sensor,
             humidity_sensor,
-            check_available_song
+            check_available_song,
+            face_registration,
+            face_recognition,
+            add_face_data
         ]
 
         model = genai.GenerativeModel(model_name='gemini-1.5-flash',

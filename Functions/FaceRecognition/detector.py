@@ -6,11 +6,11 @@ from pathlib import Path
 import face_recognition
 from PIL import Image, ImageDraw
 
-Path("training").mkdir(exist_ok=True)
-Path("output").mkdir(exist_ok=True)
-Path("validation").mkdir(exist_ok=True)
+Path("./Functions/FaceRecognition/training").mkdir(exist_ok=True)
+Path("./Functions/FaceRecognition/output").mkdir(exist_ok=True)
+Path("./Functions/FaceRecognition/validation").mkdir(exist_ok=True)
 
-DEFAULT_ENCODING_PATH = Path("output/encodings.pkl")
+DEFAULT_ENCODING_PATH = Path("./Functions/FaceRecognition/output/encodings.pkl")
 BOUNDING_BOX_COLOR = "blue"
 TEXT_COLOR = "white"
 
@@ -39,7 +39,7 @@ def encode_known_faces(
 ) -> None:
     names = []
     encodings = []
-    for filepath in Path("training").glob("*/*"):
+    for filepath in Path("./Functions/FaceRecognition/training").glob("*/*"):
         name = filepath.parent.name
         image = face_recognition.load_image_file(filepath)
         
@@ -60,7 +60,7 @@ def recognize_faces(
     image_location: str,
     model: str = "hog",
     encodings_location: Path = DEFAULT_ENCODING_PATH,
-) -> None:
+) -> str:
     with encodings_location.open(mode="rb") as f:
         loaded_encodings = pickle.load(f)
     
@@ -81,6 +81,7 @@ def recognize_faces(
     
     del draw
     pillow_image.show()
+    return str(name)
 
 def _recognize_face(unknown_encoding, loaded_encodings):
     boolean_matches = face_recognition.compare_faces(
