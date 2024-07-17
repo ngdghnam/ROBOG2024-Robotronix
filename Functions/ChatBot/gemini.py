@@ -16,11 +16,14 @@ from music import ( # type: ignore
 from weather import ( # type: ignore
     weather
 )
+"""
+# Không có sensor
 from TempDectect import ( # type: ignore
     temperature_sensor,
     humidity_sensor
 )
-from FaceRecognition import ( # type: ignore
+"""
+from face_reg import ( # type: ignore
     face_registration,
     face_recognition,
     add_face_data
@@ -45,8 +48,6 @@ def gemini():
             download_music,
             play_music,
             weather,
-            temperature_sensor,
-            humidity_sensor,
             check_available_song,
             face_registration,
             face_recognition,
@@ -73,7 +74,7 @@ def gemini():
             print(f'user: {prompt}')
             match prompt:
                 case prompt if fnmatch.fnmatch(prompt, "*Shutdown"):
-                    break
+                    break # Thêm code tắt robot cũm được
                 case prompt if len(prompt) == 0:
                     print('Yanshee: I cannot hear you, please repeat')
                     YanAPI.sync_do_tts("I cannot hear you, please repeat",False)
