@@ -40,7 +40,7 @@ def face_registration(name: str) -> int:
     - Return 0 if the registration is successful
     - Return 1 if the user is already existed
     """
-    screenshot(10)
+    screenshot(20)
     YanAPI.sync_do_tts("Updating your face, please wait")
     try:
         os.makedirs(f'./Functions/FaceRecognition/training/{name}')
@@ -95,6 +95,6 @@ def add_face_data(name: str) -> int:
         return 1
 
 if __name__ == "__main__":
-    face_registration("nam")
-    # add_face_data('nguyin')
+    # face_registration("nam")
+    add_face_data('nam')
     face_recognition()
