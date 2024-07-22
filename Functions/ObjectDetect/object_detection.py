@@ -5,9 +5,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 from PIL import Image
-sys.path.append(os.path.abspath('./Functions/FaceRecognition'))
 import google.generativeai as genai
-from face_reg import screenshot # type: ignore
+
+sys.path.append(os.path.abspath('./Functions/TakePicture'))
+from take_picture import screenshot # type: ignore
 
 classFile  = "./Functions/ObjectDetect/coco_class_labels.txt"
 
@@ -111,13 +112,17 @@ def detect_obj(Gemini: bool=True) -> str:
     """
     print("System: Running Object Detection")
     screenshot(1)
-    os.rename(f'./Functions/FaceRecognition/screenshot/screenshot0.jpg', f'./Functions/ObjectDetect/images/screenshot.jpg')
+    
+    os.rename(f'./Functions/TakePicure/screenshot/screenshot0.jpg', f'./Functions/ObjectDetect/images/screenshot.jpg')
     im = cv2.imread(os.path.join("./Functions/ObjectDetect/images", "screenshot.jpg"))
+    
     objects = detect_objects(net, im)
     result = display_objects(im, objects)
+    
     genai.configure(api_key='AIzaSyBbW-oad2I-g5k4pAI9K0PSjZhqqHB6QYU')
     model = genai.GenerativeModel(model_name='gemini-1.5-flash')
     response = model.generate_content([result, 'describe the image'])
+    
     os.remove("./Functions/ObjectDetect/images/screenshot.jpg")
     return response.text
 

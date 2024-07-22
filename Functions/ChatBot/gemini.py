@@ -16,13 +16,6 @@ from music import ( # type: ignore
 from weather import ( # type: ignore
     weather
 )
-"""
-# Không có sensor
-from TempDectect import ( # type: ignore
-    temperature_sensor,
-    humidity_sensor
-)
-"""
 from face_reg import ( # type: ignore
     face_registration,
     face_recognition,
@@ -32,19 +25,17 @@ from object_detection import ( # type: ignore
     detect_obj
 )
 
-#"""
 import time
 sys.path.append(os.path.abspath('.'))
 import config
 import YanAPI
 ip_addr = config.YanIP
 YanAPI.yan_api_init(ip_addr)
-# """
 
 def gemini():
     with open('./Functions/ChatBot/personality.txt', 'r') as instruction:
 
-        genai.configure(api_key='AIzaSyBbW-oad2I-g5k4pAI9K0PSjZhqqHB6QYU')
+        genai.configure(api_key=config.Gemini_API_KEY)
         
         functions=[
             find_music,
@@ -65,12 +56,10 @@ def gemini():
         
         start_message = chat.send_message('This is a system message, do not reply to this, start by a quick introduction')
         print(f"Yanshee: {start_message.text}")
-        # """
         YanAPI.start_voice_tts(str(start_message.text),False)
         YanAPI.sync_play_motion('bow', speed='slow')
         YanAPI.start_play_motion('Reset', speed='slow')
         time.sleep(3)
-        # """
         
         while True:
             listen_res = YanAPI.sync_do_voice_asr_value()
@@ -80,7 +69,7 @@ def gemini():
                 case prompt if fnmatch.fnmatch(prompt, "*Good Bye"):
                     print('Yanshee: Goodbye, see you later')
                     YanAPI.sync_do_tts("Goodbye, see you later",False)
-                    break # Thêm code tắt robot cũm được
+                    break
                 case prompt if len(prompt) == 0:
                     print('Yanshee: I cannot hear you, please repeat')
                     YanAPI.sync_do_tts("I cannot hear you, please repeat",False)

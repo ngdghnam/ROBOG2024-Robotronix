@@ -1,4 +1,8 @@
 import requests
+import sys
+import os
+sys.path.append(os.path.abspath('.'))
+import config
 
 def weather(city_name: str) -> str:
    '''
@@ -7,7 +11,7 @@ def weather(city_name: str) -> str:
    argument:
    - city_name: name of a city
    '''
-   API_Key = "42473d39a75600980f2420d1d58607db"
+   API_Key = config.Weather_API_KEY
    url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_Key}"
    
    response = requests.get(url)

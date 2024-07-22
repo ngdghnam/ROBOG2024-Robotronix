@@ -6,11 +6,10 @@ from gemini import gemini # type: ignore
 from CheckInternet import internet_on # type: ignore
 import config
 import time
-# """
+
 import YanAPI
 ip_addr = config.YanIP
 YanAPI.yan_api_init(ip_addr)
-# """
     
 if __name__ == "__main__":
     YanAPI.sync_play_motion(name="raise",direction="right",speed="fast",repeat=3)
@@ -18,10 +17,9 @@ if __name__ == "__main__":
     YanAPI.start_play_motion(name="reset")
     
     if internet_on():
-        # YanAPI.start_voice_tts('Starting ChatBot mode'),True)
         YanAPI.start_voice_tts("Internet connection detected, starting Chatbot mode", False)
         gemini()
     else:
-        # Chế độ offline -> offline.py
+        # Chế độ offline
         YanAPI.start_voice_tts("No Internet Connection", False)
         pass

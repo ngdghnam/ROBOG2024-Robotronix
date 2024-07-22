@@ -73,6 +73,10 @@ def download_music(search_str: str) -> bool:
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import unidecode
+import sys
+import os
+sys.path.append(os.path.abspath('.'))
+import config
 
 def find_music(query: str) -> list:
     """
@@ -87,8 +91,8 @@ def find_music(query: str) -> list:
     print(f'find_music function running with {query}\n') # log
 
     sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
-        client_id="b89acd4356eb4d0ca884d29d568daa20",
-        client_secret="ec186bc7b2fc4aeeb4afd41afda26cad"
+        client_id = config.Spotify_CLIENT_KEY,
+        client_secret = config.Spotify_CLIENT_SECRET
         )
     )
 
@@ -104,16 +108,11 @@ def find_music(query: str) -> list:
 #    )
 
 from thefuzz import process
-# """
 import YanAPI as YanAPI
-import sys
-import os
 import time
-sys.path.append(os.path.abspath('.'))
-import config
+
 ip_addr = config.YanIP
 YanAPI.yan_api_init(ip_addr)
-# """
 
 def check_available_song(gemini: bool=False) -> list:
     """
