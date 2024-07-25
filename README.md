@@ -70,15 +70,27 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+### English
+Today, Robots are on the rise, creating strong waves in many different areas of life. In addition, humanity is also modernizing their own lives. For businesses, they apply human intelligence to optimally support decision-making in business development, apply Robots to automate work processes, etc. For daily life, they are digitizing their own small homes, such as digitizing daily household tasks, weather forecasting, object recognition,... That's why we recommend the Yanshee Robot application for both major aspects of humanity. The main goal of this research is to apply machine learning and large language models along with the use of modern programming techniques running on the small Yanshee robot that people can carry anywhere. Through Agile methodology, the author team has implemented requirements by analyzing, designing, programming, and testing as well as deploying the product and following the motto of "doing their best" with some features such as recognising objects, getting weather information, etc. This research idea contributes to the modernization of households as well as business administrators in accessing and managing data, helping to reduce decision-making time and unnecessary risks to improve productivity—a high level of reliability along with user experience.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+Feature:
+* Gemini chatbot
+* Realtime weather report
+* Find and download music
+* Play and dance to music
+* Objects detection
+* Face Recognition
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+### Vietnamese
+Ngày nay, Robot đang trên đà phát triển và tạo nên làn sóng mạnh mẽ trong nhiều lĩnh vực khác nhau của cuộc sống. Ngoài ra, nhân loại cũng đang hiện đại hóa chính cuộc sống của họ. Đối với doanh nghiệp, họ ứng dụng trí tuệ nhân loại hỗ trợ một cách tối ưu nhất trong việc ra quyết định phát triển hướng kinh doanh, ứng dụng Robot để tự hóa quy trình làm việc…. Đối với cuộc sống thường ngày, họ đang số hóa chính căn nhà nhỏ của họ chẳng hạn như việc số hóa các công việc thường ngày trong cuộc, dự báo thời tiết, nhận diện vật thể,... Chính vì thế, chúng tôi đề xuất ứng dụng Robot Yanshee cho cả hai khía cạnh chính của nhân loại. Mục tiêu chính của việc nghiên cứu này là ứng dụng học máy và mô hình ngôn ngữ lớn cùng với việc sử dụng các kỹ thuật lập trình hiện đại chạy trên chính chú robot Yanshee nhỏ mà mọi người có thể cầm theo bất cứ đâu. Thông qua phương pháp Agile, nhóm tác giả đã thực hiện các yêu cầu bằng cách phân tích, thiết kế, lập trình, thử nghiệm cũng như triển khai sản phẩm và theo phương châm “nỗ lực hết mình” với một số tính năng như nhận diện vật thể, lấy thông tin thời tiết, v.v. Ý tưởng nghiên cứu này góp phần hiện đại hóa cho các hộ gia đình cũng như quản trị doanh nghiệp trong việc truy cập và quản lý dữ liệu, giúp giảm thiểu thời gian trong việc ra quyết định và các rủi ro không đáng có nhằm nâng cao mức độ tin cậy cùng với trải nghiệm của người dùng. 
 
+Chức năng:
+* Chatbot trò chuyện Gemini
+* Cập nhật thông tin thời tiết
+* Tìm và tải nhạc
+* Chơi và nhảy theo nhạc
+* Nhận diện khung cảnh và đồ vật
+* Nhận diện khuôn mặt
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -98,9 +110,7 @@ To run this code on Yanshee, you need to have:
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Create a virtual enviroment
 2. Clone the repo
    ```sh
    git clone https://github.com/your_username_/Project-Name.git
