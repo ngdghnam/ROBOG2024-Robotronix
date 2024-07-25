@@ -106,19 +106,14 @@ This code is written and tested using Visual Studio Code with Python virtual env
 To run this code on Yanshee, you need to have:
 * Python 3.11
 * YanAPI (from Yanshee Raspberry Pi RaspberianOS)
+* ffmpeg (to download and process music)
 * API key from Gemini, Spotify, and OpenWeatherMap (this code has included API keys in config.py for convenient purposes)
 
 ### Installation
 
-1. Create a virtual enviroment
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
+1. Create a virtual environment
+2. Copy all files in the folder "YanAPI" into your environment library folder (.venv/Lib/site-packages/)
+3. Download ffmpeg (ffmpeg-_(lastest version)_-full_build.7z) from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/)
 4. Enter your API in `config.js`
    ```js
    const API_KEY = 'ENTER YOUR API';
