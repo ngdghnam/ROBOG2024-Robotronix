@@ -60,6 +60,7 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#usage">Usage</a></li>
       </ul>
     </li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -111,17 +112,18 @@ To run this code on Yanshee, you need to have:
 
 ### Installation
 
-1. Create a virtual environment
+1. Create a virtual environment in the same directory as main.py
 2. Copy all files in the folder "YanAPI" into your environment library folder (.venv/Lib/site-packages/)
 3. Download ffmpeg (ffmpeg-_(lastest version)_-full_build.7z) from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/)
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+4. Extract and put the bin folder into ./.venv/ffmpeg-full_build/ (remember to rename the folder)
+
+### Usage
+
+1. Turn on Yanshee Robot and get its IP address
+2. Change the IP address in config.py
+3. Run main.py to turn on the robot
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 
 <!-- ACKNOWLEDGMENTS -->
