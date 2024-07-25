@@ -6,6 +6,7 @@ import fnmatch
 for folder in os.listdir('./Functions'):
     sys.path.append(os.path.abspath('./Functions/'+folder))
 
+# Import tất cả hàm chức năng
 # Tất cả hàm phải nằm trong một folder nằm trong folder Functions
 from music import ( # type: ignore
     find_music,
@@ -33,7 +34,7 @@ ip_addr = config.YanIP
 YanAPI.yan_api_init(ip_addr)
 
 def gemini():
-    with open('./Functions/ChatBot/personality.txt', 'r') as instruction:
+    with open('./Functions/ChatBot/personality.txt', 'r') as instruction: # cài đặt tính cách cho Gemini
 
         genai.configure(api_key=config.Gemini_API_KEY)
         
@@ -48,12 +49,15 @@ def gemini():
             add_face_data,
             detect_obj
         ]
+         
+        # set up
 
         model = genai.GenerativeModel(model_name='gemini-1.5-flash',
                                     tools=functions,
                                     system_instruction=instruction)
         chat = model.start_chat(enable_automatic_function_calling = True, history=[])
         
+        # init Gemini và cho Gemini bắt đầu conversation trước
         start_message = chat.send_message('This is a system message, do not reply to this, start by a quick introduction')
         print(f"Yanshee: {start_message.text}")
         YanAPI.start_voice_tts(str(start_message.text),False)
@@ -61,16 +65,17 @@ def gemini():
         YanAPI.start_play_motion('Reset', speed='slow')
         time.sleep(3)
         
+        # Program loop
         while True:
             listen_res = YanAPI.sync_do_voice_asr_value()
             prompt = listen_res["question"]
             print(f'user: {prompt}')
-            match prompt:
+            match prompt: # Nếu user nói goodbye -> end program
                 case prompt if fnmatch.fnmatch(prompt, "*Good Bye"):
                     print('Yanshee: Goodbye, see you later')
                     YanAPI.sync_do_tts("Goodbye, see you later",False)
                     break
-                case prompt if len(prompt) == 0:
+                case prompt if len(prompt) == 0: # Không nghe user
                     print('Yanshee: I cannot hear you, please repeat')
                     YanAPI.sync_do_tts("I cannot hear you, please repeat",False)
                 case _:

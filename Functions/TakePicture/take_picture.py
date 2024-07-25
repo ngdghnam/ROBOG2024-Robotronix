@@ -10,7 +10,7 @@ YanAPI.yan_api_init(ip_addr)
 
 def screenshot(num: int) -> None: 
     """
-    This function is used to take a photo from the robot's current vision and return the name of the person it recognizes.
+    This function is used to take a photo from the robot's current vision.
 
     argument:
     - num: the number of pictures
