@@ -22,4 +22,3 @@ if __name__ == "__main__":
     else:
         # Chế độ offline
         YanAPI.start_voice_tts("No Internet Connection", False)
-        pass

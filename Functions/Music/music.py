@@ -52,7 +52,9 @@ def download_music(search_str: str) -> bool:
 
     URLS = "https://www.youtube.com{link}".format(link = YTSearchResult[0]['url_suffix'])
 
-    print(YTSearchResult[0]['title']) # log
+    search_result = YTSearchResult[0]['title']
+    
+    print(search_result) # log
 
     if search_music(search_str, 80):
         return False
@@ -102,11 +104,6 @@ def find_music(query: str) -> list:
         search_list.append(str(unidecode.unidecode(result['name'] + ' by ' + result['artists'][0]['name'])))
     return search_list
 
-#    result_details = dict(
-#        SongName = results['tracks']['items'][0]['name'],
-#        MainArtist = results['tracks']['items'][0]['artists'][0]['name']
-#    )
-
 from thefuzz import process
 import YanAPI as YanAPI
 import time
@@ -135,6 +132,7 @@ def check_available_song(gemini: bool=False) -> list:
         songs.append(song['name'])
     return songs
 
+from mutagen.mp3 import MP3
 
 def play_music(song: str) -> bool:
     """
@@ -156,18 +154,15 @@ def play_music(song: str) -> bool:
         # Bỏ phần dir của tên bài
         song = song.strip(music_dir) 
         song = song[1:]
-        # """
-        print(YanAPI.start_voice_tts("Playing "+song.strip('.mp3')+"", False))
+        print(YanAPI.start_voice_tts("Playing "+song.strip('.mp3')+"", False)) # log
         time.sleep(2)
         YanAPI.upload_media_music(f'./Functions/Music/Song/{song}')
         time.sleep(3)
         # YanAPI.start_play_music(song)
-        print(YanAPI.start_play_music(name=song))
-        time.sleep(10) # test chạy nhạc
-        # time.sleep(MP3('./Functions/Music/Song/{title}'.format(title=song)).info.length)
-        # YanAPI.stop_play_music()
-        # YanAPI.delete_media_music(song)
-        # """
+        print(YanAPI.start_play_music(name=song)) # log
+        time.sleep(MP3('./Functions/Music/Song/{title}'.format(title=song)).info.length)
+        YanAPI.stop_play_music()
+        YanAPI.delete_media_music(song)
         return True
     else:
         for song_inter in check_available_song():
@@ -182,15 +177,12 @@ def play_music(song: str) -> bool:
                 except:
                     YanAPI.sync_play_music(name=song)
                 finally:
-                    # time.sleep(10) # test chạy nhạc
                     YanAPI.stop_play_motion()
                     YanAPI.stop_play_music()
                     return True
     return False
 
 if __name__ == '__main__':
-    song_name = 'SorrySorry'
-
+    song_name = 'Hello'
     # download_music(song_name)
-    print(play_music(song_name))
     # check_available_song()

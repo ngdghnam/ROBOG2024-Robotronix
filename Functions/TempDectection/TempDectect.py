@@ -9,7 +9,7 @@ YanAPI.yan_api_init(ip_addr)
 
 def temperature_sensor(GeminiCall: bool) -> str:
     """
-    description: Return the temperature from the sensor
+    description: Return the temperature from the sensor. Required a sensor
 
     argument:
     - GeminiCall: Check if Gemini is calling the function
