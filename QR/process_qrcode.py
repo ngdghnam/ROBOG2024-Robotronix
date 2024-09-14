@@ -3,6 +3,9 @@ import qrcode
 import cv2 
 import os 
 
+ip_adr = "192.168.0.162"
+YanAPI.yan_api_init(ip_adr)
+
 # CREATE QR CODE 
 def create_qrcode(data):
     qr_code = qrcode.make(data)
@@ -38,7 +41,7 @@ def detect_qrcode_livecam():
         if bbox is not None: 
             if data: 
                 print(data)
-                # YanAPI.sync_do_tts(data)
+                YanAPI.sync_do_tts(data)
 
         cv2.imshow('img', img)
         if cv2.waitKey(1) == ord('q'):
