@@ -1,3 +1,4 @@
+import YanAPI
 import qrcode 
 import cv2 
 import os 
@@ -37,7 +38,7 @@ def detect_qrcode_livecam():
         if bbox is not None: 
             if data: 
                 print(data)
-                return data 
+                # YanAPI.sync_do_tts(data)
 
         cv2.imshow('img', img)
         if cv2.waitKey(1) == ord('q'):
