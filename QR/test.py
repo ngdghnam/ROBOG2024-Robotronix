@@ -1,5 +1,6 @@
 import YanAPI
 
-ip_adr = "192.168.0.162"
+ip_adr = "192.168.0.160"
 YanAPI.yan_api_init(ip_adr)
-YanAPI.get_aprilTag_recognition_status()
+res = YanAPI.get_aprilTag_recognition_status()
+print(res)
