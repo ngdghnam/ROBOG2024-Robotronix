@@ -1,5 +1,10 @@
 import requests
 import json
+import YanAPI
+
+ip_add = "192.168.68.124"
+YanAPI.yan_api_init(ip_add)
+
 
 def Gemini(user_input:str) -> str:
 
@@ -40,5 +45,12 @@ def Gemini(user_input:str) -> str:
 
     return answer
 
-text = input('Enter your text: ')
-print(Gemini(text))
+YanAPI.start_voice_tts("Hello, what can I do for you")
+listen_res = YanAPI.sync_do_voice_asr_value()
+prompt = listen_res["question"]
+print(prompt)
+
+answer = Gemini(prompt)
+
+YanAPI.start_voice_tts(answer)
+print(answer)
